@@ -6,6 +6,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     public bool isOpen = false;
+    public bool isLocked = true;
     [SerializeField] private bool isRotationDoor = true;
     [SerializeField] private float speed = 1f;
 
@@ -26,12 +27,14 @@ public class Door : MonoBehaviour
 
     public void Open(Vector3 userPosition)
     {
-        if (!isOpen)
+        if (isLocked || isOpen)
         {
-            if (AnimationCoroutine != null)
-            {
-                StopCoroutine(AnimationCoroutine);
-            }
+            return; // Do not open if locked or already open
+        }
+
+        if (AnimationCoroutine != null)
+        {
+            StopCoroutine(AnimationCoroutine);
         }
 
         if (isRotationDoor)
@@ -93,5 +96,11 @@ public class Door : MonoBehaviour
             yield return null;
             time += Time.deltaTime * speed;
         }
+    }
+
+    public void Unlock()
+    {
+        isLocked = false;
+        Debug.Log("Door Unlocked");
     }
 }

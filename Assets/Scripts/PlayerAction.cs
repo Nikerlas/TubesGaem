@@ -17,38 +17,60 @@ public class PlayerAction : MonoBehaviour
         {
             if (hit.collider.TryGetComponent<Door>(out Door door))
             {
-                if (door.isOpen)
+                if (!door.isLocked)
                 {
-                    door.Close();
+                    if (door.isOpen)
+                        door.Close();
+                    else
+                        door.Open(Camera.position);
                 }
-                else
-                {
-                    door.Open(Camera.position);
-                }
+            }
+            else if (hit.collider.TryGetComponent<Console>(out Console console))
+            {
+                console.Use();
             }
         }
     }
 
     private void Update()
     {
-        if (Physics.Raycast(Camera.position, Camera.forward, out RaycastHit hit, MaxUseDistance, UseLayer)
-        && hit.collider.TryGetComponent<Door>(out Door door))
+        if (Physics.Raycast(Camera.position, Camera.forward, out RaycastHit hit, MaxUseDistance, UseLayer))
         {
-            if (door.isOpen)
+            if (hit.collider.TryGetComponent<Door>(out Door door))
             {
-                UseText.SetText("Close \"E\"");
+                if (door.isLocked)
+                {
+                    UseText.SetText("Locked");
+                }
+                else
+                {
+                    UseText.SetText(door.isOpen ? "Close \"E\"" : "Open \"E\"");
+                }
+
+                UseText.gameObject.SetActive(true);
+                UseText.transform.position = hit.point + (hit.point - Camera.position).normalized * 0.01f;
+                UseText.transform.rotation = Quaternion.LookRotation(hit.point - Camera.position).normalized;
+            }
+            else if (hit.collider.TryGetComponent<Console>(out Console console))
+            {
+                if (console.IsQuizCompleted)
+                    UseText.SetText("Quiz Complete");
+                else
+                    UseText.SetText("Use Console \"E\"");
+
+                UseText.gameObject.SetActive(true);
+                UseText.transform.position = hit.point + (hit.point - Camera.position).normalized * 0.01f;
+                UseText.transform.rotation = Quaternion.LookRotation(hit.point - Camera.position).normalized;
             }
             else
             {
-                UseText.SetText("Open \"E\"");
+                UseText.gameObject.SetActive(false);
             }
-            UseText.gameObject.SetActive(true);
-            UseText.transform.position = hit.point + (hit.point - Camera.position).normalized * 0.01f;
-            UseText.transform.rotation = Quaternion.LookRotation(hit.point - Camera.position).normalized;
         }
         else
         {
             UseText.gameObject.SetActive(false);
         }
     }
+
 }
