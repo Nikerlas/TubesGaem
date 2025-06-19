@@ -3,14 +3,18 @@ using UnityEngine.InputSystem;
 
 public class Console : MonoBehaviour
 {
+    [Header("Data Kuis")]
+    public QuestionData questionData; // <-- TAMBAHKAN INI: Untuk menampung data soal
+
     [Header("Quiz & Door")]
     public GameObject quizUIPanel;
+    public QuizUI quizUIScript; // <-- TAMBAHKAN INI: Referensi langsung ke skrip UI
     public Door doorToUnlock;
     public PlayerInput playerInput;
 
     [Header("Screen Visual")]
     public Renderer screenRenderer;
-    public int screenMaterialIndex = 1; // Isi berdasarkan urutan material layar
+    public int screenMaterialIndex = 1;
     public Color lockedColor = Color.red;
     public Color unlockedColor = Color.green;
 
@@ -19,12 +23,15 @@ public class Console : MonoBehaviour
 
     private void Start()
     {
-        SetScreenColor(lockedColor); // warna awal = merah (locked)
+        SetScreenColor(lockedColor);
+        if (quizUIScript == null && quizUIPanel != null)
+        {
+            quizUIScript = quizUIPanel.GetComponent<QuizUI>();
+        }
     }
 
     private void Update()
     {
-        // Keluar quiz saat tekan ESC
         if (quizActive && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             ExitQuiz();
@@ -35,6 +42,12 @@ public class Console : MonoBehaviour
     {
         if (!quizCompleted)
         {
+            // Tampilkan pertanyaan SEBELUM panel aktif
+            if (quizUIScript != null && questionData != null)
+            {
+                quizUIScript.DisplayQuestion(questionData, this); // <-- MODIFIKASI: Kirim data soal ke UI
+            }
+
             quizUIPanel.SetActive(true);
             Time.timeScale = 0;
 
@@ -53,7 +66,7 @@ public class Console : MonoBehaviour
         quizCompleted = true;
         doorToUnlock.Unlock();
         ExitQuiz();
-        SetScreenColor(unlockedColor); // warna hijau = unlocked
+        SetScreenColor(unlockedColor);
     }
 
     private void ExitQuiz()
@@ -72,6 +85,7 @@ public class Console : MonoBehaviour
 
     private void SetScreenColor(Color color)
     {
+        // ... (Fungsi ini tidak perlu diubah)
         if (screenRenderer != null)
         {
             Material[] materials = screenRenderer.materials;
@@ -81,17 +95,9 @@ public class Console : MonoBehaviour
                 materials[screenMaterialIndex].color = color;
             }
 
-            screenRenderer.materials = materials; // apply changes
+            screenRenderer.materials = materials;
         }
-    }
-
-    public void DebugCompleteQuiz()
-    {
-        Debug.Log("Quiz selesai (DEBUG MANUAL)");
-        OnQuizCompleted();
     }
 
     public bool IsQuizCompleted => quizCompleted;
 }
-
-
