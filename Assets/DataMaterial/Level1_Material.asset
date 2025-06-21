@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c18423528e6ecc4abca5b89cedfe9ee, type: 3}
+  m_Name: Level1_Material
+  m_EditorClassIdentifier: 
+  title: 'Level 1: Python Variables & Data Types'
+  explanationText: "A variable is a container for storing data values. In Python,
+    you don't need to declare the type of a variable; it's determined automatically.
+    Common data types include:\n- Text Type: str(e.g., \"Hello\")\n- Numeric Type:
+    int(e.g., 20),float(e.g., 20.5)\n- Boolean Type: bool(True or False)\n\nYou can
+    also convert between types using functions like: int(),float(), and str() \n\n(this
+    is called casting)."
+  codeExample: 'player_name = "Cyber_Knight"
+
+    health = 100
+
+    mana_cost = 25.5
+
+    #
+    Casting a number to a string to join them
+
+    print("Welcome, " + player_name)
+
+    print("Your
+    HP is: " + str(health))'
+  codeOutput: 'Welcome, Cyber_Knight
+
+    Your HP is: 100'

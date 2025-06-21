@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2674a72f9f0dea64cbd7b0fa73f06068, type: 3}
+  m_Name: L2_C2_Q2
+  m_EditorClassIdentifier: 
+  questionText: To check if a value is either 'A' or 'B', you would use...
+  answers:
+  - if val == 'A' and 'B'
+  - if val == 'A' or val == 'B'
+  - if val == 'A' || 'B'
+  - if val in ['A', 'B']
+  correctAnswerIndex: 1

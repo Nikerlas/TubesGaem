@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c18423528e6ecc4abca5b89cedfe9ee, type: 3}
+  m_Name: Level2_Material
+  m_EditorClassIdentifier: 
+  title: 'Level 2: Python Conditionals & Operators'
+  explanationText: Conditional statements allow your program to make decisions. The
+    if,elif(else if), and else keywords are used. Conditions often involve comparison
+    operators (==, != , >, &) and logical operators (and,or,not) to combine checks.
+  codeExample: "level = 15\nknows_magic = True\nif level >= 10 and knows_magic:\n
+    print(\"You can enter the Arcane Library.\")\nelse:\n print(\"You do not meet
+    the requirements.\")"
+  codeOutput: You can enter the Arcane Library.
