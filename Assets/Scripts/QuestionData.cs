@@ -1,18 +1,18 @@
+// Assets/Scripts/Data/QuestionData.cs
 using UnityEngine;
 
-// Menambahkan opsi untuk membuat aset ini dari menu Create di Unity
-[CreateAssetMenu(fileName = "Soal Baru", menuName = "Sistem Kuis/Data Soal")]
+[CreateAssetMenu(fileName = "New Question", menuName = "Quiz System/Question")]
 public class QuestionData : ScriptableObject
 {
-    [Header("Informasi Soal")]
-    [Tooltip("Teks pertanyaan, bisa berisi potongan kode Python")]
-    [TextArea(5, 10)] // Membuat field teks lebih besar di Inspector
+    [Header("Question Info")]
+    [Tooltip("The question text. Can contain code snippets.")]
+    [TextArea(5, 10)]
     public string questionText;
 
-    [Tooltip("Sediakan 4 pilihan jawaban")]
+    [Tooltip("Provide 4 answer options.")]
     public string[] answers = new string[4];
 
-    [Tooltip("Indeks jawaban yang benar (0 = A, 1 = B, 2 = C, 3 = D)")]
-    [Range(0, 3)] // Membatasi input antara 0 dan 3
+    [Tooltip("The index of the correct answer (0-3).")]
+    [Range(0, 3)]
     public int correctAnswerIndex;
 }
