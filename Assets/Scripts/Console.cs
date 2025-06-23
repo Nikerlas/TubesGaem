@@ -1,103 +1,82 @@
+// File: Console.cs (Versi Final yang Sudah Disesuaikan)
 using UnityEngine;
-using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class Console : MonoBehaviour
 {
-    [Header("Data Kuis")]
-    public QuestionData questionData; // <-- TAMBAHKAN INI: Untuk menampung data soal
+    // Enum untuk membuat pilihan dropdown di Inspector
+    public enum ConsoleType { Quiz, Material }
 
-    [Header("Quiz & Door")]
-    public GameObject quizUIPanel;
-    public QuizUI quizUIScript; // <-- TAMBAHKAN INI: Referensi langsung ke skrip UI
+    [Header("Console General Setup")]
+    public ConsoleType type = ConsoleType.Quiz;
+    public string consoleTitle;
+    
+    [Header("Quiz-Specific Setup")]
+    [Tooltip("Pintu spesifik yang akan dibuka oleh konsol ini. Biarkan kosong jika tidak ada.")]
     public Door doorToUnlock;
-    public PlayerInput playerInput;
+    [Tooltip("Daftar semua soal untuk konsol ini.")]
+    public List<QuestionData> questions;
 
-    [Header("Screen Visual")]
-    public Renderer screenRenderer;
-    public int screenMaterialIndex = 1;
-    public Color lockedColor = Color.red;
-    public Color unlockedColor = Color.green;
+    [Header("Material-Specific Setup")]
+    [Tooltip("Data materi untuk konsol ini.")]
+    public MaterialData material;
 
-    private bool quizCompleted = false;
-    private bool quizActive = false;
+    // Properti untuk dibaca oleh PlayerAction
+    public bool IsQuizCompleted { get; private set; } = false;
 
-    private void Start()
+    // Referensi ke UI Panel
+    private QuizPanelUI quizPanel;
+    private MaterialPanelUI materialPanel;
+
+    void Start()
     {
-        SetScreenColor(lockedColor);
-        if (quizUIScript == null && quizUIPanel != null)
-        {
-            quizUIScript = quizUIPanel.GetComponent<QuizUI>();
-        }
+        // Cari panel UI secara otomatis saat game dimulai
+        quizPanel = FindObjectOfType<QuizPanelUI>(true);
+        materialPanel = FindObjectOfType<MaterialPanelUI>(true);
     }
 
-    private void Update()
-    {
-        if (quizActive && Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            ExitQuiz();
-        }
-    }
-
+    // Fungsi ini dipanggil oleh PlayerAction.cs saat tombol interaksi ditekan
     public void Use()
     {
-        if (!quizCompleted)
+        // Jika kuis sudah selesai, tidak melakukan apa-apa
+        if (IsQuizCompleted && type == ConsoleType.Quiz)
         {
-            // Tampilkan pertanyaan SEBELUM panel aktif
-            if (quizUIScript != null && questionData != null)
+            Debug.Log("Quiz for " + consoleTitle + " is already complete.");
+            return;
+        }
+
+        // Cek tipe konsol untuk menentukan aksi
+        if (type == ConsoleType.Quiz)
+        {
+            if (quizPanel != null && questions.Count > 0)
             {
-                quizUIScript.DisplayQuestion(questionData, this); // <-- MODIFIKASI: Kirim data soal ke UI
+                // Memulai kuis dengan mengirim judul, daftar soal, dan referensi ke konsol ini sendiri
+                quizPanel.StartQuiz(consoleTitle, questions, this);
             }
-
-            quizUIPanel.SetActive(true);
-            Time.timeScale = 0;
-
-            if (playerInput != null)
-                playerInput.enabled = false;
-
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-
-            quizActive = true;
+        }
+        else if (type == ConsoleType.Material)
+        {
+            if (materialPanel != null && material != null)
+            {
+                // Menampilkan panel materi
+                materialPanel.Show(material);
+            }
         }
     }
 
+    // Fungsi ini akan dipanggil oleh QuizPanelUI saat kuis berhasil diselesaikan
     public void OnQuizCompleted()
     {
-        quizCompleted = true;
-        doorToUnlock.Unlock();
-        ExitQuiz();
-        SetScreenColor(unlockedColor);
-    }
-
-    private void ExitQuiz()
-    {
-        quizUIPanel.SetActive(false);
-        Time.timeScale = 1;
-
-        if (playerInput != null)
-            playerInput.enabled = true;
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
-        quizActive = false;
-    }
-
-    private void SetScreenColor(Color color)
-    {
-        // ... (Fungsi ini tidak perlu diubah)
-        if (screenRenderer != null)
+        if (!IsQuizCompleted)
         {
-            Material[] materials = screenRenderer.materials;
-
-            if (screenMaterialIndex >= 0 && screenMaterialIndex < materials.Length)
+            IsQuizCompleted = true;
+            Debug.Log($"Console {consoleTitle} completed! Unlocking its door.");
+            
+            // Jika ada pintu yang terhubung, panggil fungsi Unlock()
+            if (doorToUnlock != null)
             {
-                materials[screenMaterialIndex].color = color;
+                doorToUnlock.Unlock();
             }
-
-            screenRenderer.materials = materials;
         }
     }
-
-    public bool IsQuizCompleted => quizCompleted;
 }
