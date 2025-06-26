@@ -19,3 +19,5 @@ MonoBehaviour:
   - The 'if' and all 'elif' conditions are False
   - Never
   correctAnswerIndex: 2
+  explanation: 'Explanation: The else block only executes if none of the if or elif
+    conditions are True.'

@@ -20,3 +20,4 @@ MonoBehaviour:
   - 2
   - 4
   correctAnswerIndex: 2
+  explanation: When i == 2, continue skips the print(i), so 2 is not printed.

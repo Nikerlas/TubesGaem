@@ -20,3 +20,5 @@ MonoBehaviour:
   - else
   - except
   correctAnswerIndex: 2
+  explanation: You can add else to a loop; it runs only if the loop completes without
+    hitting a break.

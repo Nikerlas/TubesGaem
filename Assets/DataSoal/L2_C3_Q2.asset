@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2674a72f9f0dea64cbd7b0fa73f06068, type: 3}
   m_Name: L2_C3_Q2
   m_EditorClassIdentifier: 
-  questionText: 'In Python, what does the condition if x: evaluate to when x = None?'
+  questionText: In Python, what does the condition 'if x:' evaluate to when x = None?
   answers:
   - True
   - False
   - Error
   - None
   correctAnswerIndex: 1
+  explanation: 'x = None. In Python, if x: evaluates to False when x is None, 0,
+    False, '''', or an empty collection.'

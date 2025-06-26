@@ -19,3 +19,5 @@ MonoBehaviour:
   - A loop with a condition that never becomes False
   - A loop inside another loop
   correctAnswerIndex: 2
+  explanation: An infinite loop is one where the condition always stays True and
+    never exits.

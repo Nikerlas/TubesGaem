@@ -22,3 +22,5 @@ MonoBehaviour:
   - error
   - 5
   correctAnswerIndex: 1
+  explanation: x = 5. 5 > 2 is True, but 5 < 5 is False. True and False results in
+    False.

@@ -22,3 +22,5 @@ MonoBehaviour:
   - Lambda function
   - Array definition
   correctAnswerIndex: 1
+  explanation: "[...] for x in ... is a list comprehension \u2014 a concise way to
+    create lists."

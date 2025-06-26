@@ -19,3 +19,4 @@ MonoBehaviour:
   - Pauses the loop
   - Restarts the loop
   correctAnswerIndex: 2
+  explanation: The break statement stops the loop immediately, no matter the condition.

@@ -19,3 +19,4 @@ MonoBehaviour:
   - if val == 'A' || 'B'
   - if val in ['A', 'B']
   correctAnswerIndex: 1
+  explanation: 'To check if a value is either ''A'' or ''B'', you need to use or. '

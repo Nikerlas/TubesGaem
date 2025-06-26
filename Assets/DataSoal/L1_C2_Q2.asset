@@ -19,4 +19,6 @@ MonoBehaviour:
   - string
   - float
   - bool
-  correctAnswerIndex: 3
+  correctAnswerIndex: 2
+  explanation: In Python 3, dividing two integers like 10 / 3 always results in a
+    float, even if both are integers.

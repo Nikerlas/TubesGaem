@@ -1,18 +1,18 @@
-// Assets/Scripts/Data/QuestionData.cs
+// File: Assets/Scripts/Data/QuestionData.cs
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Question", menuName = "Quiz System/Question")]
 public class QuestionData : ScriptableObject
 {
-    [Header("Question Info")]
-    [Tooltip("The question text. Can contain code snippets.")]
     [TextArea(5, 10)]
-    public string questionText;
+    public string questionText; // Teks pertanyaan
 
-    [Tooltip("Provide 4 answer options.")]
-    public string[] answers = new string[4];
+    public string[] answers = new string[4]; // Opsi jawaban
 
-    [Tooltip("The index of the correct answer (0-3).")]
     [Range(0, 3)]
-    public int correctAnswerIndex;
+    public int correctAnswerIndex; // Indeks jawaban benar
+
+    [Header("Post-Answer")]
+    [TextArea(3, 7)]
+    public string explanation; // <-- TAMBAHAN BARU: Penjelasan untuk ditampilkan setelah menjawab
 }

@@ -21,3 +21,5 @@ MonoBehaviour:
   - Integer
   - NoneType
   correctAnswerIndex: 1
+  explanation: Although the content is "True", the quotation marks make it a string,
+    not a boolean.

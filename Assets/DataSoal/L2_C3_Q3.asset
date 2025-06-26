@@ -20,3 +20,8 @@ MonoBehaviour:
   - Error
   - '[1]'
   correctAnswerIndex: 1
+  explanation: 'a is b is True because small integers like 5 are cached in Python
+    memory.
+
+    But c is d is False because even though the lists [1] have the same
+    content, they are different objects in memory.'

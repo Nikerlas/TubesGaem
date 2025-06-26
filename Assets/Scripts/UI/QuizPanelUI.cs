@@ -1,4 +1,4 @@
-// Assets/Scripts/UI/QuizPanelUI.cs
+// File: Assets/Scripts/UI/QuizPanelUI.cs
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,27 +7,41 @@ using TMPro;
 
 public class QuizPanelUI : MonoBehaviour
 {
-    [Header("UI References")]
+    [Header("Main UI References")]
     public TextMeshProUGUI titleText;
     public TextMeshProUGUI questionText;
     public Button[] answerButtons;
+
+    [Header("Explanation Panel UI")]
+    public GameObject explanationPanel;
+    public TextMeshProUGUI explanationText;
+    public Button continueButton;
 
     [Header("Feedback Colors")]
     public Color correctColor = Color.green;
     public Color incorrectColor = Color.red;
     public Color neutralColor = Color.white;
-    public float feedbackDuration = 1.0f;
-
+    
+    // --- Variabel Internal ---
     private List<QuestionData> currentQuizQuestions;
     private int questionIndex;
-    // private InteractableConsole sourceConsole;
+    private Console sourceConsole; 
+    private bool lastAnswerWasCorrect;
 
     void Start()
     {
-        gameObject.SetActive(false); // Start hidden
+        gameObject.SetActive(false);
+        if (explanationPanel != null)
+        {
+            explanationPanel.SetActive(false);
+        }
+        if (continueButton != null)
+        {
+            continueButton.onClick.AddListener(OnContinueClicked);
+        }
     }
     
-    public void StartQuiz(string title, List<QuestionData> questions, InteractableConsole console)
+    public void StartQuiz(string title, List<QuestionData> questions, Console console)
     {
         titleText.text = title;
         currentQuizQuestions = questions;
@@ -40,80 +54,90 @@ public class QuizPanelUI : MonoBehaviour
 
     private void ShowQuestion()
     {
-        if (questionIndex < currentQuizQuestions.Count)
+        if (explanationPanel != null)
         {
-            QuestionData q = currentQuizQuestions[questionIndex];
-            questionText.text = q.questionText;
-            for (int i = 0; i < answerButtons.Length; i++)
-            {
-                // Reset button appearance and functionality
-                answerButtons[i].GetComponent<Image>().color = neutralColor;
-                answerButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = q.answers[i];
-                answerButtons[i].interactable = true;
-
-                int buttonIndex = i; // Important for listener
-                answerButtons[i].onClick.RemoveAllListeners();
-                answerButtons[i].onClick.AddListener(() => SelectAnswer(buttonIndex));
-            }
+            explanationPanel.SetActive(false); // Sembunyikan panel penjelasan saat soal baru muncul
         }
-        else
+        
+        QuestionData q = currentQuizQuestions[questionIndex];
+        questionText.text = q.questionText;
+
+        for (int i = 0; i < answerButtons.Length; i++)
         {
-            // All questions answered
-            FinishQuiz(true);
+            answerButtons[i].GetComponent<Image>().color = neutralColor;
+            answerButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = q.answers[i];
+            answerButtons[i].interactable = true;
+
+            int buttonIndex = i;
+            answerButtons[i].onClick.RemoveAllListeners();
+            answerButtons[i].onClick.AddListener(() => SelectAnswer(buttonIndex));
         }
     }
 
     private void SelectAnswer(int selectedIndex)
     {
-        // Disable all buttons immediately to prevent multiple clicks
         foreach (Button btn in answerButtons)
         {
             btn.interactable = false;
         }
 
-        bool isCorrect = (selectedIndex == currentQuizQuestions[questionIndex].correctAnswerIndex);
+        lastAnswerWasCorrect = (selectedIndex == currentQuizQuestions[questionIndex].correctAnswerIndex);
         
-        // Show feedback
-        StartCoroutine(ShowFeedbackAndProceed(isCorrect));
+        ShowFeedbackAndExplanation(selectedIndex);
     }
 
-    private IEnumerator ShowFeedbackAndProceed(bool wasCorrect)
+    private void ShowFeedbackAndExplanation(int selectedIndex)
     {
-        if (wasCorrect)
+        int correctIndex = currentQuizQuestions[questionIndex].correctAnswerIndex;
+        answerButtons[correctIndex].GetComponent<Image>().color = correctColor;
+
+        if (!lastAnswerWasCorrect)
         {
-            // Color only the correct button green
-            int correctIndex = currentQuizQuestions[questionIndex].correctAnswerIndex;
-            answerButtons[correctIndex].GetComponent<Image>().color = correctColor;
+            answerButtons[selectedIndex].GetComponent<Image>().color = incorrectColor;
+        }
+
+        // Tampilkan panel penjelasan jika ada dan penjelasannya tidak kosong
+        if (explanationPanel != null && !string.IsNullOrEmpty(currentQuizQuestions[questionIndex].explanation))
+        {
+            explanationText.text = currentQuizQuestions[questionIndex].explanation;
+            explanationPanel.SetActive(true);
         }
         else
         {
-            // Color the user's wrong choice red and the correct one green
-            int correctIndex = currentQuizQuestions[questionIndex].correctAnswerIndex;
-            // First find the button the user clicked (this assumes the listener context is still valid)
-            // A better way would be to pass the button reference to SelectAnswer. For now, this logic will color all non-correct red.
-            for (int i = 0; i < answerButtons.Length; i++)
-            {
-                if (i == correctIndex)
-                {
-                    answerButtons[i].GetComponent<Image>().color = correctColor;
-                }
-                else
-                {
-                     answerButtons[i].GetComponent<Image>().color = incorrectColor;
-                }
-            }
+            // Jika tidak ada panel penjelasan, langsung lanjutkan setelah jeda singkat
+            StartCoroutine(ContinueAfterDelay());
         }
-        
-        yield return new WaitForSeconds(feedbackDuration);
+    }
+    
+    private IEnumerator ContinueAfterDelay()
+    {
+        yield return new WaitForSeconds(1.5f); // Jeda 1.5 detik
+        OnContinueClicked();
+    }
 
-        if (wasCorrect)
+    // Fungsi ini dipanggil oleh continueButton atau otomatis setelah jeda
+    public void OnContinueClicked()
+    {
+        if (explanationPanel != null)
+        {
+            explanationPanel.SetActive(false); // Sembunyikan panel lagi
+        }
+
+        if (lastAnswerWasCorrect)
         {
             questionIndex++;
-            ShowQuestion(); // Move to next question
+            if (questionIndex < currentQuizQuestions.Count)
+            {
+                ShowQuestion(); // Lanjut ke soal berikutnya
+            }
+            else
+            {
+                FinishQuiz(true); // Semua soal terjawab dengan benar
+            }
         }
         else
         {
-            FinishQuiz(false); // Failed the quiz
+            FinishQuiz(false); // Kuis gagal karena ada jawaban salah
         }
     }
 
@@ -121,13 +145,9 @@ public class QuizPanelUI : MonoBehaviour
     {
         if (success)
         {
-            Debug.Log("Quiz completed successfully!");
-            sourceConsole.MarkAsCompleted();
+            // Panggil OnQuizCompleted() yang ada di skrip Console.cs
+            sourceConsole.OnQuizCompleted();
         }
-        else
-        {
-            Debug.Log("Quiz failed. Closing panel.");
-        }
-        gameObject.SetActive(false); // Hide the panel
+        gameObject.SetActive(false);
     }
 }

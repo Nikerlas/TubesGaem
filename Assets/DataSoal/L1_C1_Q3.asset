@@ -19,3 +19,5 @@ MonoBehaviour:
   - Declaring
   - Formatting
   correctAnswerIndex: 0
+  explanation: Converting a value from one data type to another is called casting,
+    like int("5") to get an integer.

@@ -16,7 +16,12 @@ MonoBehaviour:
     be a beach day?"
   answers:
   - "If it\u2019s sunny only"
-  - ' If the temperature is above 30 only'
+  - If the temperature is above 30 only
   - "If the temperature is above 30 and it\u2019s sunny"
   - Always, no matter the temperature or weather
   correctAnswerIndex: 2
+  explanation: 'The condition uses and, meaning both temperature > 30 and is_sunny
+    must be True for the code to run.
+
+
+'

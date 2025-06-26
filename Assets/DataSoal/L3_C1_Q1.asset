@@ -22,3 +22,4 @@ MonoBehaviour:
   - 2, 3, 4
   - 3, 4, 5
   correctAnswerIndex: 2
+  explanation: "range(2,5) produces 2, 3, 4 \u2014 it stops before the second number."

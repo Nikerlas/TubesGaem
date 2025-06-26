@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2674a72f9f0dea64cbd7b0fa73f06068, type: 3}
-  m_Name: Level3_Soal5
+  m_Name: L3_C4_Q3
   m_EditorClassIdentifier: 
-  questionText: Perulangan yang paling cocok digunakan ketika jumlah iterasi tidak
-    diketahui secara pasti adalah...
+  questionText: "x = 10\r\nwhile x > 0:\r\n    print(x)\r\n    if x == 5:\r\n       
+    break\r\n    x -= 1\r\n"
   answers:
-  - A. for loop
-  - B. while loop
-  - C. nested loop
-  - D. recursive loop
-  correctAnswerIndex: 1
+  - 1
+  - 0
+  - 6
+  - 5
+  correctAnswerIndex: 3
+  explanation: When x == 5, it prints 5 then breaks. So 5 is the last printed number.

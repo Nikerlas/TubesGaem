@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questionText: What is a "nested" conditional?
   answers:
-  - n if statement inside another if statement
+  - An if statement inside another if statement
   - Two if statements side-by-side
   - An if statement using 'and'
   - An if statement using 'or'
   correctAnswerIndex: 0
+  explanation: A nested conditional is an if statement placed inside another if statement.

@@ -22,3 +22,5 @@ MonoBehaviour:
   - z
   - Error
   correctAnswerIndex: 1
+  explanation: All three variables x, y, and z are assigned the same value "Apple".
+    So, the value of y is "Apple".

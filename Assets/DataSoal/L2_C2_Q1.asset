@@ -22,3 +22,5 @@ MonoBehaviour:
   - Nothing is wrong
   - Should use 'is'
   correctAnswerIndex: 0
+  explanation: In an if statement, you need == to compare values, not = which is
+    for assignment.

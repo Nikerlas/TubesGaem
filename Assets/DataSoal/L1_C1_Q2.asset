@@ -24,3 +24,4 @@ MonoBehaviour:
   - '"50" (string)'
   - Error
   correctAnswerIndex: 1
+  explanation: x is a string "50", but int(x) converts it to the integer 50.

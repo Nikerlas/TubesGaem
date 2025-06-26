@@ -19,3 +19,4 @@ MonoBehaviour:
   - 'for i in range(11):'
   - 'while i < 11:'
   correctAnswerIndex: 1
+  explanation: range(10) gives 0 to 9, which means it loops exactly 10 times.

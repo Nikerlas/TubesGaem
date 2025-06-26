@@ -20,3 +20,5 @@ MonoBehaviour:
   - i = i + 1
   - continue
   correctAnswerIndex: 2
+  explanation: Without increasing i inside the loop, the condition i < 3 remains
+    True, causing an infinite loop.

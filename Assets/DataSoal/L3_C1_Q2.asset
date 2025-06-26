@@ -20,3 +20,4 @@ MonoBehaviour:
   - List
   - Dictionary
   correctAnswerIndex: 2
+  explanation: 'for item in items: is looping over a list: ["A", "B", "C"]'

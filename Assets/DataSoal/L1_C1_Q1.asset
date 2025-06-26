@@ -22,3 +22,5 @@ MonoBehaviour:
   - float
   - boolean
   correctAnswerIndex: 2
+  explanation: The value 20.0 is a decimal number, so its data type is float. If
+    it were 20 without the .0, it would be an int.

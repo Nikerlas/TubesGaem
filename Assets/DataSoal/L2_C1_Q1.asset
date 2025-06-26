@@ -22,3 +22,4 @@ MonoBehaviour:
   - x != 5
   - x < 10
   correctAnswerIndex: 2
+  explanation: x = 10. Only x != 5 is True because 10 is indeed not equal to 5.
