@@ -4,20 +4,24 @@ using UnityEngine.UI;
 
 public class QuizUI : MonoBehaviour
 {
-    // Hapus referensi ke Console, karena Console yang akan memanggilnya
-    // public Console console; <-- HAPUS INI
-
     public TextMeshProUGUI questionText;
     public Button[] optionButtons;
+    public Button nextButton; // assign di inspector
+    public Color correctColor = Color.green;
+    public Color wrongColor = Color.red;
+    public Color defaultColor = Color.white;
+    public bool useTimerToNext = true; // true=pakai timer, false=pakai tombol next
+    public float nextDelay = 1.5f; // detik
 
-    private Console currentConsole; // Simpan referensi konsol yang aktif
+    private Console currentConsole; // console aktif
     private QuestionData currentQuestion;
 
-    // Hapus fungsi Start() yang lama
-
-    // Fungsi baru untuk menampilkan soal berdasarkan data yang diterima
+    // Tampilkan soal baru
     public void DisplayQuestion(QuestionData data, Console sourceConsole)
     {
+        ResetButtonColorsAndStates();
+        nextButton.gameObject.SetActive(false);
+
         currentQuestion = data;
         currentConsole = sourceConsole;
 
@@ -25,38 +29,57 @@ public class QuizUI : MonoBehaviour
 
         for (int i = 0; i < optionButtons.Length; i++)
         {
-            int index = i; 
-            // Isi teks tombol dari QuestionData
+            int index = i;
             optionButtons[i].GetComponentInChildren<TextMeshProUGUI>().text = currentQuestion.answers[i];
-            
-            // Hapus listener lama untuk menghindari duplikasi
             optionButtons[i].onClick.RemoveAllListeners();
-            // Tambahkan listener baru
             optionButtons[i].onClick.AddListener(() => OnAnswerSelected(index));
         }
     }
 
     private void OnAnswerSelected(int index)
     {
+        // Disable tombol
+        foreach (var btn in optionButtons)
+            btn.interactable = false;
+
         if (index == currentQuestion.correctAnswerIndex)
         {
-            Debug.Log("Jawaban benar!");
-            // Gunakan referensi yang disimpan untuk memberitahu konsol
+            optionButtons[index].GetComponent<Image>().color = correctColor;
+
             if (currentConsole != null)
-            {
-                currentConsole.OnQuizCompleted();
-            }
+                currentConsole.NotifyCorrectAnswered(useTimerToNext, nextDelay);
         }
         else
         {
-            Debug.Log("Jawaban salah. Coba lagi.");
-            // Di sini Anda bisa menambahkan logika untuk menampilkan tanda silang merah
-            // atau langsung menutup panel. Sesuai skenario, kita tutup saja.
+            optionButtons[index].GetComponent<Image>().color = wrongColor;
+            optionButtons[currentQuestion.correctAnswerIndex].GetComponent<Image>().color = correctColor;
+
             if (currentConsole != null)
-            {
-                // Memanggil ExitQuiz dari Console agar status game kembali normal
-                currentConsole.SendMessage("ExitQuiz");
-            }
+                currentConsole.NotifyWrongAnswered(useTimerToNext, nextDelay);
         }
+
+        if (!useTimerToNext)
+        {
+            nextButton.gameObject.SetActive(true);
+        }
+    }
+
+    private void ResetButtonColorsAndStates()
+    {
+        foreach (var btn in optionButtons)
+        {
+            btn.GetComponent<Image>().color = defaultColor;
+            btn.interactable = true;
+        }
+    }
+
+    // Dipanggil tombol next di inspector
+    public void OnNextButtonClicked()
+    {
+        ResetButtonColorsAndStates();
+        nextButton.gameObject.SetActive(false);
+
+        if (currentConsole != null)
+            currentConsole.OnNextButtonClicked();
     }
 }

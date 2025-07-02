@@ -1,82 +1,148 @@
-// File: Console.cs (Versi Final yang Sudah Disesuaikan)
 using UnityEngine;
-using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class Console : MonoBehaviour
 {
-    // Enum untuk membuat pilihan dropdown di Inspector
-    public enum ConsoleType { Quiz, Material }
-
-    [Header("Console General Setup")]
-    public ConsoleType type = ConsoleType.Quiz;
-    public string consoleTitle;
-    
-    [Header("Quiz-Specific Setup")]
-    [Tooltip("Pintu spesifik yang akan dibuka oleh konsol ini. Biarkan kosong jika tidak ada.")]
+    [Header("Quiz & Door")]
+    public GameObject quizUIPanel;
     public Door doorToUnlock;
-    [Tooltip("Daftar semua soal untuk konsol ini.")]
-    public List<QuestionData> questions;
+    public PlayerInput playerInput;
+    public QuizUI quizUI; // assign di inspector
+    public QuestionData[] questions;
 
-    [Header("Material-Specific Setup")]
-    [Tooltip("Data materi untuk konsol ini.")]
-    public MaterialData material;
+    [Header("Screen Visual")]
+    public Renderer screenRenderer;
+    public int screenMaterialIndex = 1;
+    public Color lockedColor = Color.red;
+    public Color unlockedColor = Color.green;
 
-    // Properti untuk dibaca oleh PlayerAction
-    public bool IsQuizCompleted { get; private set; } = false;
+    private bool quizCompleted = false;
+    private bool quizActive = false;
+    private int currentQuestionIndex = 0;
 
-    // Referensi ke UI Panel
-    private QuizPanelUI quizPanel;
-    private MaterialPanelUI materialPanel;
-
-    void Start()
+    private void Start()
     {
-        // Cari panel UI secara otomatis saat game dimulai
-        quizPanel = FindObjectOfType<QuizPanelUI>(true);
-        materialPanel = FindObjectOfType<MaterialPanelUI>(true);
+        SetScreenColor(lockedColor);
     }
 
-    // Fungsi ini dipanggil oleh PlayerAction.cs saat tombol interaksi ditekan
+    private void Update()
+    {
+        if (quizActive && Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            ExitQuiz();
+        }
+    }
+
     public void Use()
     {
-        // Jika kuis sudah selesai, tidak melakukan apa-apa
-        if (IsQuizCompleted && type == ConsoleType.Quiz)
+        if (!quizCompleted)
         {
-            Debug.Log("Quiz for " + consoleTitle + " is already complete.");
-            return;
-        }
+            currentQuestionIndex = 0;
+            ShowCurrentQuestion();
 
-        // Cek tipe konsol untuk menentukan aksi
-        if (type == ConsoleType.Quiz)
-        {
-            if (quizPanel != null && questions.Count > 0)
-            {
-                // Memulai kuis dengan mengirim judul, daftar soal, dan referensi ke konsol ini sendiri
-                quizPanel.StartQuiz(consoleTitle, questions, this);
-            }
-        }
-        else if (type == ConsoleType.Material)
-        {
-            if (materialPanel != null && material != null)
-            {
-                // Menampilkan panel materi
-                materialPanel.Show(material);
-            }
+            quizUIPanel.SetActive(true);
+            Time.timeScale = 0;
+
+            if (playerInput != null)
+                playerInput.enabled = false;
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            quizActive = true;
         }
     }
 
-    // Fungsi ini akan dipanggil oleh QuizPanelUI saat kuis berhasil diselesaikan
+    private void ShowCurrentQuestion()
+    {
+        if (currentQuestionIndex < questions.Length)
+        {
+            quizUI.DisplayQuestion(questions[currentQuestionIndex], this);
+        }
+        else
+        {
+            OnQuizCompleted();
+        }
+    }
+    private System.Collections.IEnumerator DelayNextQuestion(float delay)
+{
+    yield return new WaitForSecondsRealtime(delay);
+    CheckOrShowNextQuestion();
+}
+
+
+    // Dipanggil QuizUI saat jawab benar
+    public void NotifyCorrectAnswered(bool autoNext, float delay)
+    {
+        currentQuestionIndex++;
+        if (autoNext)
+        {
+            StartCoroutine(DelayNextQuestion(delay));
+        }
+    }
+
+public void NotifyWrongAnswered(bool autoNext, float delay)
+{
+    currentQuestionIndex++;
+    if (autoNext)
+    {
+        StartCoroutine(DelayNextQuestion(delay));
+    }
+}
+
+
+    // Dipanggil tombol next
+    public void OnNextButtonClicked()
+    {
+        CheckOrShowNextQuestion();
+    }
+
+    private void CheckOrShowNextQuestion()
+    {
+        if (currentQuestionIndex >= questions.Length)
+        {
+            OnQuizCompleted();
+        }
+        else
+        {
+            ShowCurrentQuestion();
+        }
+    }
+
     public void OnQuizCompleted()
     {
-        if (!IsQuizCompleted)
+        quizCompleted = true;
+        doorToUnlock.Unlock();
+        ExitQuiz();
+        SetScreenColor(unlockedColor);
+    }
+
+    private void ExitQuiz()
+    {
+        quizUIPanel.SetActive(false);
+        Time.timeScale = 1;
+
+        if (playerInput != null)
+            playerInput.enabled = true;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+        quizActive = false;
+    }
+
+    private void SetScreenColor(Color color)
+    {
+        if (screenRenderer != null)
         {
-            IsQuizCompleted = true;
-            Debug.Log($"Console {consoleTitle} completed! Unlocking its door.");
-            
-            // Jika ada pintu yang terhubung, panggil fungsi Unlock()
-            if (doorToUnlock != null)
+            Material[] materials = screenRenderer.materials;
+            if (screenMaterialIndex >= 0 && screenMaterialIndex < materials.Length)
             {
-                doorToUnlock.Unlock();
+                materials[screenMaterialIndex].color = color;
             }
+            screenRenderer.materials = materials;
         }
     }
+
+    public bool IsQuizCompleted => quizCompleted;
 }
