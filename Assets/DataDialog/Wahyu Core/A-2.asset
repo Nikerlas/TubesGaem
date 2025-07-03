@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6dc190d89b0f4693533eee9ff8468, type: 3}
+  m_Name: A-2
+  m_EditorClassIdentifier: 
+  choiceTriggerIndexes: 
+  npcName: 
+  sentences:
+  - ok,you did great
+  - 'is_active = "True"
+
+    What is the data type of is_active?'
+  choices:
+  - choiceText: Although the content is "True", the quotation marks make it a string,
+      not a boolean.
+    nextDialogData: {fileID: 11400000, guid: f978fd125815ccb4f9d6f29be14cdde0, type: 2}
+  - choiceText: Although the content is "False, the quotation marks make it a Node,
+      not a String.
+    nextDialogData: {fileID: 11400000, guid: 4002021ede29bcb40aea0f045b61efce, type: 2}
+  isBadEnding: 0
+  isGoodEnding: 0

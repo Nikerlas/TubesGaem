@@ -10,19 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00b6dc190d89b0f4693533eee9ff8468, type: 3}
-  m_Name: DialogWahyu
+  m_Name: A-5 salah
   m_EditorClassIdentifier: 
   choiceTriggerIndexes: 
   npcName: 
   sentences:
-  - hello strangers
-  - great job you can go to this way
-  - 'now i gonna give a question that you maybe alerady answer before '
-  - r u ready strangers??
+  - ok,you did great
   choices:
-  - choiceText: yes go on
-    nextDialogData: {fileID: 11400000, guid: c57da1cbfe394284a820178768975f2a, type: 2}
-  - choiceText: nope i already tiered
-    nextDialogData: {fileID: 11400000, guid: 5e0896dada71bfb41b6390b06b5a3657, type: 2}
+  - choiceText: ....
+    nextDialogData: {fileID: 11400000, guid: e4620a3bb7786c941bc7d64abb457de7, type: 2}
   isBadEnding: 0
   isGoodEnding: 0
