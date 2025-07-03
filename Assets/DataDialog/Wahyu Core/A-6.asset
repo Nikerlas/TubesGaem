@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6dc190d89b0f4693533eee9ff8468, type: 3}
+  m_Name: A-6
+  m_EditorClassIdentifier: 
+  choiceTriggerIndexes: 
+  npcName: 
+  sentences:
+  - next..
+  - In Python, what does the condition 'if x:' evaluate to when x = None?
+  choices:
+  - choiceText: 'x = None. In Python, if x: evaluates to False when x is None, ,
+      True'
+    nextDialogData: {fileID: 11400000, guid: 5ea5f5ae29ce7a64e8c3d5923095435f, type: 2}
+  - choiceText: 'x = None. In Python, if x: evaluates to False when x is None, 0,
+      False, '''', or an empty collection.'
+    nextDialogData: {fileID: 11400000, guid: f7b6fd7844f07b447b7d96c8a1b439c6, type: 2}
+  isBadEnding: 0
+  isGoodEnding: 1
