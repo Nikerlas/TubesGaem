@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2674a72f9f0dea64cbd7b0fa73f06068, type: 3}
   m_Name: L3_C1_Q2
   m_EditorClassIdentifier: 
-  questionText: "items = [\"A\", \"B\", \"C\"]\nfor item in items:\n print(item)\n\nThis
+  questionText: "items = [\"A\", \"B\", \"C\"]\nfor item in items:\n print(item)\nThis
     is an example of iterating over a:"
   answers:
   - Range

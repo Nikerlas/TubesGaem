@@ -12,16 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2674a72f9f0dea64cbd7b0fa73f06068, type: 3}
   m_Name: L2_C3_Q3
   m_EditorClassIdentifier: 
-  questionText: "a = 5\r\nb = 5\r\n# a is b \u2192 True\r\n\r\nc = [1]\r\nd = [1]\r\n#
-    c is d \u2192 ?\r\n\nWhat will c is d evaluate to?"
+  questionText: "power = 50  \r\nmessage = \"Strong\" if power > 75 else \"Weak\" 
+    \r\nprint(message)"
   answers:
-  - True
-  - False
+  - Strong
+  - Weak
   - Error
-  - '[1]'
+  - Strong if power > 75 else Weak
   correctAnswerIndex: 1
-  explanation: 'a is b is True because small integers like 5 are cached in Python
-    memory.
-
-    But c is d is False because even though the lists [1] have the same
-    content, they are different objects in memory.'
+  explanation: This syntax is Python's conditional expression. It checks the condition
+    (power > 75). Since 50 is not greater than 75, the condition is False, and the
+    value after the else keyword ("Weak") is returned.

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2674a72f9f0dea64cbd7b0fa73f06068, type: 3}
   m_Name: L3_C2_Q2
   m_EditorClassIdentifier: 
-  questionText: "i = 0\r\nwhile i < 3:\r\n print(i)\r\n# Missing line\n\nWhat line
+  questionText: "i = 0\r\nwhile i < 3:\r\n print(i)\r\n# Missing line\nWhat line
     is needed to prevent an infinite loop?"
   answers:
   - i = 0
