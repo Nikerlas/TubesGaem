@@ -10,8 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00b6dc190d89b0f4693533eee9ff8468, type: 3}
-  m_Name: Dialog1
+  m_Name: DialogRandom
   m_EditorClassIdentifier: 
-  npcName: 
-  portrait: {fileID: 0}
-  sentences: []
+  choiceTriggerIndexes: 
+  npcName: Celestial Udin
+  sentences:
+  - Hooooooo
+  - Well all I can say is good luck....
+  - Anyway, try to find a platform to reach the engine up there. The console was
+    there
+  - You can use spacebar to jump
+  choices: []
+  isBadEnding: 0
+  isGoodEnding: 0

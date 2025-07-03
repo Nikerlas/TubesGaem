@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b6dc190d89b0f4693533eee9ff8468, type: 3}
+  m_Name: DialogEazy
+  m_EditorClassIdentifier: 
+  choiceTriggerIndexes: 
+  npcName: Celestial Udin
+  sentences:
+  - Hahahahah.. bet you can't beat this level now
+  - Anyway, try to find a platform to reach the engine up there. There's console
+    up there too
+  - You can use spacebar to jump
+  - Good luck...
+  choices: []
+  isBadEnding: 0
+  isGoodEnding: 0
