@@ -29,6 +29,10 @@ public class PlayerAction : MonoBehaviour
             {
                 console.Use();
             }
+            else if (hit.collider.TryGetComponent<NPCInteractable>(out NPCInteractable npc))
+            {
+                npc.Use();
+            }
         }
     }
 
@@ -58,6 +62,13 @@ public class PlayerAction : MonoBehaviour
                 else
                     UseText.SetText("Use Console \"E\"");
 
+                UseText.gameObject.SetActive(true);
+                UseText.transform.position = hit.point + (hit.point - Camera.position).normalized * 0.01f;
+                UseText.transform.rotation = Quaternion.LookRotation(hit.point - Camera.position).normalized;
+            }
+            else if (hit.collider.TryGetComponent<NPCInteractable>(out NPCInteractable npc))
+            {
+                UseText.SetText($"Talk to {npc.dialogData.npcName} \"E\"");
                 UseText.gameObject.SetActive(true);
                 UseText.transform.position = hit.point + (hit.point - Camera.position).normalized * 0.01f;
                 UseText.transform.rotation = Quaternion.LookRotation(hit.point - Camera.position).normalized;
