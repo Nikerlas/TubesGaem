@@ -16,6 +16,9 @@ MonoBehaviour:
   npcName: 
   sentences:
   - nice try sybaw
+  - You can't go...
+  - 'You''re dissapointed.. even in this demo.. '
+  - Pathetic
   choices: []
   isBadEnding: 1
   isGoodEnding: 0

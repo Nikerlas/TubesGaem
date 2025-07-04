@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b6dc190d89b0f4693533eee9ff8468, type: 3}
   m_Name: A-2
   m_EditorClassIdentifier: 
-  choiceTriggerIndexes: 
+  choiceTriggerIndexes: 02000000
   npcName: 
   sentences:
   - ok,you did great
   - 'is_active = "True"
 
     What is the data type of is_active?'
+  - ...
   choices:
   - choiceText: Although the content is "True", the quotation marks make it a string,
       not a boolean.

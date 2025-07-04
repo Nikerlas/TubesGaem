@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b6dc190d89b0f4693533eee9ff8468, type: 3}
   m_Name: A-3
   m_EditorClassIdentifier: 
-  choiceTriggerIndexes: 
+  choiceTriggerIndexes: 03000000
   npcName: 
   sentences:
   - nicee answer ,strangers
   - next..
   - What is a "nested" conditional?
+  - ...
   choices:
   - choiceText: A nested conditional is an if statement placed inside another if
       statement.

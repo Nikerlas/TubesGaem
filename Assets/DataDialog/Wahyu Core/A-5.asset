@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b6dc190d89b0f4693533eee9ff8468, type: 3}
   m_Name: A-5
   m_EditorClassIdentifier: 
-  choiceTriggerIndexes: 
+  choiceTriggerIndexes: 01000000
   npcName: 
   sentences:
   - What is an infinite loop?
+  - ...
   choices:
   - choiceText: 0 loop
     nextDialogData: {fileID: 11400000, guid: 52d70a7703f9a7041b6e82f09a19637b, type: 2}

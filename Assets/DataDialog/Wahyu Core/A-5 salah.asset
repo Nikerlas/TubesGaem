@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b6dc190d89b0f4693533eee9ff8468, type: 3}
   m_Name: A-5 salah
   m_EditorClassIdentifier: 
-  choiceTriggerIndexes: 
+  choiceTriggerIndexes: 01000000
   npcName: 
   sentences:
   - ok,you did great
+  - ...
   choices:
   - choiceText: ....
     nextDialogData: {fileID: 11400000, guid: e4620a3bb7786c941bc7d64abb457de7, type: 2}

@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b6dc190d89b0f4693533eee9ff8468, type: 3}
   m_Name: A-4
   m_EditorClassIdentifier: 
-  choiceTriggerIndexes: 
+  choiceTriggerIndexes: 02000000
   npcName: 
   sentences:
   - next..
   - In Python, what does the condition 'if x:' evaluate to when x = None?
+  - ...
   choices:
   - choiceText: 'x = None. In Python, if x: evaluates to False when x is None, ,
       True'

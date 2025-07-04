@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00b6dc190d89b0f4693533eee9ff8468, type: 3}
   m_Name: A-1
   m_EditorClassIdentifier: 
-  choiceTriggerIndexes: 
+  choiceTriggerIndexes: 02000000
   npcName: 
   sentences:
   - ok, first question....
@@ -20,6 +20,7 @@ MonoBehaviour:
 
 
     What does x > 2 and x < 5 evaluate to?'
+  - ...
   choices:
   - choiceText: x = 5. 5 > 2 is True, but 5 < 5 is False.
     nextDialogData: {fileID: 11400000, guid: 12772164590f0a947b3af028f5a39ac1, type: 2}

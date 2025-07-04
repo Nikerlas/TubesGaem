@@ -15,10 +15,11 @@ MonoBehaviour:
   choiceTriggerIndexes: 
   npcName: 
   sentences:
-  - greatjob
-  - 'good ending
-
-'
+  - great job
+  - You're so smart
+  - I can't beat you... ahahahahah
+  - Thank you for playing this game
+  - But remember this is just the demo.. hahahahahaha
   choices: []
   isBadEnding: 0
   isGoodEnding: 1

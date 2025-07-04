@@ -21,6 +21,9 @@ public class SceneManagement : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         if (exitPopup != null)
             exitPopup.SetActive(false);
 
@@ -109,7 +112,7 @@ public class SceneManagement : MonoBehaviour
 
     public void SelectGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Main");
     }
 
     public void CreditScene()

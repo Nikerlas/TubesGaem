@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class DialogUI : MonoBehaviour, IPointerClickHandler
 {
@@ -140,11 +141,13 @@ public class DialogUI : MonoBehaviour, IPointerClickHandler
         if (currentDialog.isBadEnding)
         {
             Debug.Log("BAD END triggered!");
+            SceneManager.LoadScene("BadEnd");
             // Load scene BadEnd, tampilkan panel, dsb
         }
         else if (currentDialog.isGoodEnding)
         {
             Debug.Log("GOOD END triggered!");
+            SceneManager.LoadScene("GoodEnd");
             // Load scene GoodEnd atau panel good end
         }
     }
